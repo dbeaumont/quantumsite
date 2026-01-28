@@ -1,0 +1,326 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-blue: #00d4ff;
+  --neon-purple: #a855f7;
+  --neon-pink: #ec4899;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-quantum-950 text-white antialiased;
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(14, 165, 233, 0.05) 0%, transparent 70%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-quantum-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-quantum-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-quantum-500;
+}
+
+/* Quantum card styles */
+.quantum-card {
+  @apply relative bg-gradient-to-br from-quantum-800/80 to-quantum-900/80
+         rounded-2xl border border-quantum-700/50 backdrop-blur-xl
+         shadow-lg shadow-quantum-950/50
+         transition-all duration-300 ease-out;
+}
+
+.quantum-card:hover {
+  @apply border-quantum-500/50 shadow-xl shadow-quantum-500/10;
+  transform: translateY(-2px);
+}
+
+/* Glow effect */
+.quantum-glow {
+  box-shadow:
+    0 0 20px rgba(0, 212, 255, 0.15),
+    0 0 40px rgba(0, 212, 255, 0.1),
+    0 0 60px rgba(0, 212, 255, 0.05);
+}
+
+.quantum-glow-purple {
+  box-shadow:
+    0 0 20px rgba(168, 85, 247, 0.2),
+    0 0 40px rgba(168, 85, 247, 0.1);
+}
+
+/* Button styles */
+.quantum-button {
+  @apply relative px-6 py-3 bg-gradient-to-r from-quantum-500 to-quantum-600
+         text-white font-semibold rounded-xl
+         transition-all duration-300 ease-out
+         hover:from-quantum-400 hover:to-quantum-500
+         hover:shadow-lg hover:shadow-quantum-500/30
+         active:scale-[0.98]
+         disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none;
+}
+
+.quantum-button-secondary {
+  @apply relative px-6 py-3 bg-transparent
+         text-quantum-300 font-semibold rounded-xl
+         border border-quantum-600
+         transition-all duration-300 ease-out
+         hover:bg-quantum-800/50 hover:border-quantum-500 hover:text-white
+         active:scale-[0.98];
+}
+
+.quantum-button-ghost {
+  @apply px-4 py-2 text-quantum-300 font-medium rounded-lg
+         transition-all duration-200
+         hover:bg-quantum-800/50 hover:text-white;
+}
+
+/* Input styles */
+.quantum-input {
+  @apply w-full px-4 py-3 bg-quantum-900/50
+         border border-quantum-700 rounded-xl
+         text-white placeholder:text-quantum-500
+         transition-all duration-200
+         focus:outline-none focus:border-quantum-500 focus:ring-2 focus:ring-quantum-500/20
+         hover:border-quantum-600;
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-neon-blue via-quantum-400 to-neon-purple;
+}
+
+.gradient-text-warm {
+  @apply text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-neon-purple;
+}
+
+/* Animated background particles */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--neon-blue);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-30px) translateX(10px);
+    opacity: 0.3;
+  }
+}
+
+/* Atom animation */
+.atom-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.nucleus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+  border-radius: 50%;
+  box-shadow: 0 0 30px var(--neon-blue);
+}
+
+.electron-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 50%;
+  animation: orbit-rotate 4s linear infinite;
+}
+
+.electron-orbit:nth-child(1) {
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+}
+
+.electron-orbit:nth-child(2) {
+  width: 90px;
+  height: 90px;
+  margin: -45px 0 0 -45px;
+  animation-duration: 6s;
+  animation-direction: reverse;
+}
+
+.electron-orbit:nth-child(3) {
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0 -60px;
+  animation-duration: 8s;
+}
+
+.electron {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--neon-blue);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--neon-blue);
+  top: -4px;
+  left: 50%;
+  margin-left: -4px;
+}
+
+@keyframes orbit-rotate {
+  from { transform: rotateZ(0deg) rotateX(60deg); }
+  to { transform: rotateZ(360deg) rotateX(60deg); }
+}
+
+/* Progress bar */
+.progress-bar {
+  @apply h-2 bg-quantum-800 rounded-full overflow-hidden;
+}
+
+.progress-bar-fill {
+  @apply h-full bg-gradient-to-r from-neon-blue to-neon-purple rounded-full
+         transition-all duration-500 ease-out;
+}
+
+/* Quiz option styles */
+.quiz-option {
+  @apply relative p-4 rounded-xl border-2 border-quantum-700 bg-quantum-900/30
+         cursor-pointer transition-all duration-200
+         hover:border-quantum-500 hover:bg-quantum-800/50;
+}
+
+.quiz-option.selected {
+  @apply border-quantum-400 bg-quantum-800/70;
+}
+
+.quiz-option.correct {
+  @apply border-green-500 bg-green-500/10;
+}
+
+.quiz-option.incorrect {
+  @apply border-red-500 bg-red-500/10;
+}
+
+/* Markdown content styles */
+.markdown-content h1 {
+  @apply text-3xl font-bold mb-6 gradient-text;
+}
+
+.markdown-content h2 {
+  @apply text-2xl font-bold mt-8 mb-4 text-quantum-200;
+}
+
+.markdown-content h3 {
+  @apply text-xl font-semibold mt-6 mb-3 text-quantum-300;
+}
+
+.markdown-content p {
+  @apply mb-4 text-quantum-200 leading-relaxed;
+}
+
+.markdown-content ul, .markdown-content ol {
+  @apply mb-4 pl-6 text-quantum-200;
+}
+
+.markdown-content li {
+  @apply mb-2;
+}
+
+.markdown-content ul li {
+  @apply list-disc;
+}
+
+.markdown-content ol li {
+  @apply list-decimal;
+}
+
+.markdown-content strong {
+  @apply text-white font-semibold;
+}
+
+.markdown-content code {
+  @apply px-2 py-1 bg-quantum-800 rounded text-neon-blue font-mono text-sm;
+}
+
+.markdown-content blockquote {
+  @apply pl-4 border-l-4 border-quantum-500 italic text-quantum-300 my-4;
+}
+
+/* Badge styles */
+.badge {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+}
+
+.badge-beginner {
+  @apply bg-green-500/20 text-green-400 border border-green-500/30;
+}
+
+.badge-intermediate {
+  @apply bg-yellow-500/20 text-yellow-400 border border-yellow-500/30;
+}
+
+.badge-advanced {
+  @apply bg-red-500/20 text-red-400 border border-red-500/30;
+}
+
+/* Animation utilities */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

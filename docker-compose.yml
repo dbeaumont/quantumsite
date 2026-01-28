@@ -1,0 +1,35 @@
+services:
+  quantumsite:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: quantumsite
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Development mode with hot reload
+  quantumsite-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: quantumsite-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+    profiles:
+      - dev
