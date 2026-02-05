@@ -33,7 +33,11 @@ docker-build: ## Build l'image Docker de production
 	docker build -t $(DOCKER_IMAGE):$(DOCKER_TAG) .
 
 docker-up: ## Lance le conteneur en mode production
-	docker-compose up -d quantumsite
+	@docker-compose up -d quantumsite || ( \
+		echo "docker-up: echec, nettoyage du network puis nouvel essai..." ; \
+		$(MAKE) docker-network-clean ; \
+		docker-compose up -d quantumsite \
+	)
 
 docker-down: ## Arrête les conteneurs
 	docker-compose down
@@ -49,6 +53,9 @@ docker-shell: ## Ouvre un shell dans le conteneur
 
 docker-clean: ## Supprime les images et volumes Docker
 	docker-compose down -v --rmi local
+
+docker-network-clean: ## Nettoie le network docker-compose (utile si l'option IPv6 change)
+	docker network rm quantumsite_default || true
 
 # ==================== Raccourcis ====================
 
